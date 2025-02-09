@@ -1,0 +1,3 @@
+INFO:tests.conftest:Выданные данные для регистрации: {'login': 'oihcyoecab', 'password': 'nytpepvdle', 'firstName': 'ajvddlabbo'}
+INFO:tests.conftest:Измененные данные в тесте: {'password': 'nytpepvdle'}
+INFO:tests.conftest:Авторизация курьера для удаления: {'login': 'oihcyoecab', 'password': 'nytpepvdle'}

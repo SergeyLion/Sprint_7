@@ -1,0 +1,3 @@
+INFO:tests.conftest:Выданные данные для регистрации: {'login': 'xdbpfgthdz', 'password': 'snpmjcohlz', 'firstName': 'ijrprpvodm'}
+INFO:tests.conftest:Измененные данные в тесте: {'login': 'xdbpfgthdz'}
+INFO:tests.conftest:Авторизация курьера для удаления: {'login': 'xdbpfgthdz', 'password': 'snpmjcohlz'}

@@ -1,0 +1,3 @@
+INFO:tests.conftest:Выданные данные для регистрации: {'login': 'pudozmcfdd', 'password': 'keuhzlsuea', 'firstName': 'kncaeorohw'}
+INFO:tests.conftest:Измененные данные в тесте: {'login': 'pudozmcfdd', 'password': 'keuhzlsuea', 'firstName': 'kncaeorohw'}
+INFO:tests.conftest:Авторизация курьера для удаления: {'login': 'pudozmcfdd', 'password': 'keuhzlsuea'}

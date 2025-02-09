@@ -1,0 +1,3 @@
+INFO:tests.conftest:Выданные данные для регистрации: {'login': 'hgeqarxjvi', 'password': 'mtcdlffyaw', 'firstName': 'pbbainkkub'}
+INFO:tests.conftest:Измененные данные в тесте: {'login': 'hgeqarxjvi', 'password': 'mtcdlffyaw', 'firstName': 'pbbainkkub'}
+INFO:tests.conftest:Авторизация курьера для удаления: {'login': 'hgeqarxjvi', 'password': 'mtcdlffyaw'}
