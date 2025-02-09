@@ -65,13 +65,9 @@ class TestAuthCourier:
     @allure.description(
         "Проверка, что при попытки авторизоваться несуществующему пользователю, возвращается кода 404 и текст ошибки в теле ответа")
     def test_courier_login_nonexistent_user_returns_error(self, api_client):
-        payload = {
-            "login": "nonexistent_user",
-            "password": "1234"
-        }
 
         with allure.step("Отправка POST-запроса для авторизации курьера"):
-            response = api_client.post(St.ENDPOINT_AUTH_COURIER, payload)
+            response = api_client.post(St.ENDPOINT_AUTH_COURIER, St.PAYLOAD_NONE_USER)
 
         with allure.step("Проверка, что код ответа на создание заказа 404"):
             assert response.status_code == St.RESPONSE_AUTH_NOT_FOUND["code"],\

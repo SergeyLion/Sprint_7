@@ -6,6 +6,7 @@ class Settings:
     ENDPOINT_AUTH_COURIER = "api/v1/courier/login" # Courier - Логин курьера в системе
     RESPONSE_AUTH_BAD_REQUEST = {"code": 400, "message": "Недостаточно данных для входа"}
     RESPONSE_AUTH_NOT_FOUND = {"code": 404, "message": "Учетная запись не найдена"}
+    PAYLOAD_NONE_USER = {"login": "nonexistent_user","password": "1234"} # Данные несуществующего пользователя
     # Работа с сущностью курьер
     ENDPOINT_COURIER = "api/v1/courier" # Courier - Создание курьера
     RESPONSE_COURIER_BAD_REQUEST = {"code": 400, "message": "Недостаточно данных для создания учетной записи"}
