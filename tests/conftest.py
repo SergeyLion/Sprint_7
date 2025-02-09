@@ -45,33 +45,18 @@ def delete_courier(api_client):
 
 
 @pytest.fixture
-def create_courier(api_client):
-    # Вспомогательная функция для генерации случайной строки
-    def generate_random_string(length):
-        letters = string.ascii_lowercase
-        return ''.join(random.choice(letters) for i in range(length))
+def create_courier(api_client, delete_courier):
 
-    login = generate_random_string(10)
-    password = generate_random_string(10)
-    first_name = generate_random_string(10)
+    payload = delete_courier
 
-    # Создание курьера
-    payload = {
-        "login": login,
-        "password": password,
-        "firstName": first_name
-    }
     api_client.post(St.ENDPOINT_COURIER, payload)
 
-    login_payload = {
-        "login": login,
-        "password": password
-    }
+    del payload["firstName"]
     # Возвращаем данные для авторизации
-    yield login_payload
+    yield payload
 
     # Удаляем курьера после завершения теста
-    response_login = api_client.post(St.ENDPOINT_AUTH_COURIER, login_payload )
+    response_login = api_client.post(St.ENDPOINT_AUTH_COURIER, payload )
     if response_login.status_code == 200:
         id_courier = response_login.json()['id']
         api_client.delete(f'{St.ENDPOINT_COURIER}/{id_courier}')
