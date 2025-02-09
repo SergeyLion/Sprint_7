@@ -1,7 +1,10 @@
 
 
 class Settings:
-    BASE_URL = "https://qa-scooter.praktikum-services.ru/"
+    BASE_URL = "https://qa-scooter.praktikum-services.ru"
+    ENDPOINT_AUTH_COURIER = "api/v1/courier/login" # Courier - Логин курьера в системе
+    ENDPOINT_COURIER = "api/v1/courier" # Courier - Создание курьера
+    ENDPOINT_ORDER = "api/v1/orders" # Orders - Создание заказа и получение заказа
     BASE_ORDER_PAYLOAD = {
         "firstName": "Naruto",
         "lastName": "Uchiha",
@@ -13,3 +16,4 @@ class Settings:
         "comment": "Saske, come back to Konoha",
         "color": []
     }
+

@@ -2,13 +2,13 @@ import pytest
 import random
 import string
 from api_client.api_client import APIClient
-from settings import Settings
+from settings import Settings as St
 
 
 
 @pytest.fixture
 def api_client():
-    return APIClient(Settings.BASE_URL)
+    return APIClient(St.BASE_URL)
 
 
 @pytest.fixture
@@ -38,10 +38,10 @@ def delete_courier(api_client):
         "password": password
     }
     # После завершения фикстур удаляем курьера
-    response_login = api_client.post('api/v1/courier/login', login_payload )
+    response_login = api_client.post(St.ENDPOINT_AUTH_COURIER, login_payload )
     if response_login.status_code == 200:
         id_courier = response_login.json()['id']
-        api_client.delete(f'api/v1/courier/{id_courier}')
+        api_client.delete(f'{St.ENDPOINT_COURIER}/{id_courier}')
 
 
 @pytest.fixture
@@ -61,7 +61,7 @@ def create_courier(api_client):
         "password": password,
         "firstName": first_name
     }
-    api_client.post('api/v1/courier', payload)
+    api_client.post(St.ENDPOINT_COURIER, payload)
 
     login_payload = {
         "login": login,
@@ -71,7 +71,7 @@ def create_courier(api_client):
     yield login_payload
 
     # Удаляем курьера после завершения теста
-    response_login = api_client.post('api/v1/courier/login', login_payload )
+    response_login = api_client.post(St.ENDPOINT_AUTH_COURIER, login_payload )
     if response_login.status_code == 200:
         id_courier = response_login.json()['id']
-        api_client.delete(f'api/v1/courier/{id_courier}')
+        api_client.delete(f'{St.ENDPOINT_COURIER}/{id_courier}')

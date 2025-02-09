@@ -1,5 +1,6 @@
 import allure
 import pytest
+from settings import Settings as St
 
 @allure.feature("Работа с курьером")
 @allure.story("Логин курьера в системе")
@@ -14,7 +15,7 @@ class TestAuthCourier:
         payload = create_courier
 
         with allure.step("Отправка POST-запроса для авторизации курьера"):
-            response = api_client.post('api/v1/courier/login', payload)
+            response = api_client.post(St.ENDPOINT_AUTH_COURIER, payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 200"):
             assert response.status_code == 200, "Ожидался успешный запрос"
@@ -31,7 +32,7 @@ class TestAuthCourier:
         # Удаляем одно поле
         del payload[missing_field]
         with allure.step("Отправка POST-запроса для авторизации курьера"):
-            response = api_client.post("api/v1/courier/login", payload)
+            response = api_client.post(St.ENDPOINT_AUTH_COURIER, payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 400"):
             assert response.status_code == 400, f"Ожидалась ошибка 400 при отсутствии поля {missing_field}"
@@ -49,7 +50,7 @@ class TestAuthCourier:
         # Заменяем поле
         payload[incorrect_field] = "tulskiy"
         with allure.step("Отправка POST-запроса для авторизации курьера"):
-            response = api_client.post("api/v1/courier/login", payload)
+            response = api_client.post(St.ENDPOINT_AUTH_COURIER, payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 404"):
             assert response.status_code == 404, f"Ожидалась ошибка 404 при неправильном поля {incorrect_field}"
@@ -68,7 +69,7 @@ class TestAuthCourier:
         }
 
         with allure.step("Отправка POST-запроса для авторизации курьера"):
-            response = api_client.post('api/v1/courier/login', payload)
+            response = api_client.post(St.ENDPOINT_AUTH_COURIER, payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 404"):
             assert response.status_code == 404, "Ожидалась ошибка 404 для несуществующего пользователя"

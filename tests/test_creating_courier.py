@@ -1,5 +1,7 @@
 import allure
 import pytest
+from settings import Settings as St
+
 
 @allure.feature("Работа с курьером")
 @allure.story("Создание курьера")
@@ -12,7 +14,7 @@ class TestCreatingCourier:
         payload = delete_courier
 
         with allure.step("Отправка POST-запроса для создания курьера"):
-            response = api_client.post("api/v1/courier", data=payload)
+            response = api_client.post(St.ENDPOINT_COURIER, data=payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 201"):
             assert response.status_code == 201, "Ожидался успешный запрос"
@@ -26,13 +28,13 @@ class TestCreatingCourier:
     def test_double_creating_courier_conflict(self, api_client, delete_courier):
         payload = delete_courier
         with allure.step("Отправка POST-запроса для создания курьера"):
-            response = api_client.post("api/v1/courier", data=payload)
+            response = api_client.post(St.ENDPOINT_COURIER, data=payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 201"):
             assert response.status_code == 201
 
         with allure.step("Отправка POST-запроса для создания курьера с теме же данными"):
-            double_response = api_client.post("api/v1/courier", data=payload)
+            double_response = api_client.post(St.ENDPOINT_COURIER, data=payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 409"):
             assert double_response.status_code == 409
@@ -46,7 +48,7 @@ class TestCreatingCourier:
     def test_creating_courier_existing_login(self, api_client, delete_courier):
         payload = delete_courier
         with allure.step("Отправка POST-запроса для создания курьера"):
-            response = api_client.post("api/v1/courier", data=payload)
+            response = api_client.post(St.ENDPOINT_COURIER, data=payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 201"):
             assert response.status_code == 201
@@ -54,7 +56,7 @@ class TestCreatingCourier:
         with allure.step("Отправка POST-запроса для создания курьера с таким же логином"):
             payload_exist_login = payload.copy()
             payload_exist_login["password"] = "123654789"
-            response_exist_login = api_client.post("api/v1/courier", data=payload_exist_login)
+            response_exist_login = api_client.post(St.ENDPOINT_COURIER, data=payload_exist_login)
 
         with allure.step("Проверка, что код ответа на создание заказа 409"):
             assert response_exist_login.status_code == 409
@@ -71,7 +73,7 @@ class TestCreatingCourier:
         # Удаляем одно поле
         del payload[missing_field]
         with allure.step("Отправка POST-запроса для создания курьера"):
-            response = api_client.post("api/v1/courier", data=payload)
+            response = api_client.post(St.ENDPOINT_COURIER, data=payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 400"):
             assert response.status_code == 400, f"Ожидалась ошибка 400 при отсутствии поля {missing_field}"

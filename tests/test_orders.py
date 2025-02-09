@@ -1,6 +1,6 @@
 import allure
 import pytest
-from settings import Settings
+from settings import Settings as St
 
 
 @allure.feature("Управление заказами")
@@ -12,11 +12,11 @@ class TestCreateOrder:
         "Проверка, что запрос на создание заказов возвращает статус 201 и track заказа")
     @pytest.mark.parametrize("color_select", [["BLACK"], ["GREY"], ["BLACK", "GREY"], []])
     def test_create_order_with_black_color_returns_track(self, color_select, api_client):
-        payload = Settings.BASE_ORDER_PAYLOAD.copy()
+        payload = St.BASE_ORDER_PAYLOAD.copy()
         payload["color"] = color_select
 
         with allure.step("Отправка POST-запроса для создание заказа"):
-            response = api_client.post('api/v1/orders', payload)
+            response = api_client.post(St.ENDPOINT_ORDER, payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 201"):
             assert response.status_code == 201, "Ожидался успешный запрос"
@@ -35,7 +35,7 @@ class TestListOrder:
 
         payload = {'limit':'10', 'page':'0'}
         with allure.step("Отправка GET-запроса для получения списка заказов"):
-            response = api_client.get("api/v1/orders", params=payload)
+            response = api_client.get(St.ENDPOINT_ORDER, params=payload)
 
         with allure.step("Проверка, что статус-код ответа равен 200"):
             assert response.status_code == 200, f"Ожидался статус-код 200, но получен {response.status_code}"
