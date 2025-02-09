@@ -31,16 +31,18 @@ class TestCreatingCourier:
             response = api_client.post(St.ENDPOINT_COURIER, data=payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 201"):
-            assert response.status_code == 201
+            assert response.status_code == 201 , "Ожидался успешный запрос"
 
         with allure.step("Отправка POST-запроса для создания курьера с теме же данными"):
             double_response = api_client.post(St.ENDPOINT_COURIER, data=payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 409"):
-            assert double_response.status_code == 409
+            assert double_response.status_code == St.RESPONSE_COURIER_CONFLICT["code"],\
+                f"Ожидалась ошибка {St.RESPONSE_COURIER_CONFLICT["code"]} при создание курьера с такими же данными"
 
         with allure.step("Проверка, что в теле ответа сообщение об ошибки"):
-            assert double_response.json()["message"] == "Этот логин уже используется. Попробуйте другой."
+            assert double_response.json()["message"] == St.RESPONSE_COURIER_CONFLICT["message"],\
+                f"Ожидалось сообщение об ошибки '{St.RESPONSE_COURIER_CONFLICT["message"]}'"
 
     @allure.title("Создание курьера с существующим логином")
     @allure.description(
@@ -59,10 +61,12 @@ class TestCreatingCourier:
             response_exist_login = api_client.post(St.ENDPOINT_COURIER, data=payload_exist_login)
 
         with allure.step("Проверка, что код ответа на создание заказа 409"):
-            assert response_exist_login.status_code == 409
+            assert response_exist_login.status_code == St.RESPONSE_COURIER_CONFLICT["code"],\
+                f"Ожидалась ошибка {St.RESPONSE_COURIER_CONFLICT["code"]} при создание курьера с такими же логином"
 
         with allure.step("Проверка, что в теле ответа сообщение об ошибки"):
-            assert response_exist_login.json()["message"] == "Этот логин уже используется. Попробуйте другой."
+            assert response_exist_login.json()["message"] == St.RESPONSE_COURIER_CONFLICT["message"],\
+                f"Ожидалось сообщение об ошибки '{St.RESPONSE_COURIER_CONFLICT["message"]}'"
 
     @allure.title("Создание курьера без обязательного поля {missing_field}")
     @allure.description(
@@ -76,9 +80,10 @@ class TestCreatingCourier:
             response = api_client.post(St.ENDPOINT_COURIER, data=payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 400"):
-            assert response.status_code == 400, f"Ожидалась ошибка 400 при отсутствии поля {missing_field}"
+            assert response.status_code == St.RESPONSE_COURIER_BAD_REQUEST["code"],\
+                f"Ожидалась ошибка {St.RESPONSE_COURIER_BAD_REQUEST["code"]} при отсутствии поля {missing_field}"
 
         with allure.step("Проверка, что в теле ответа сообщение об ошибки"):
-            assert "Недостаточно данных для создания учетной записи" in response.json()["message"],\
-                f"Ожидалось сообщение об ошибке при отсутствии поля {missing_field}"
+            assert response.json()["message"] == St.RESPONSE_COURIER_BAD_REQUEST["message"] ,\
+                f"Ожидалось сообщение об ошибке '{St.RESPONSE_COURIER_BAD_REQUEST["message"]}' при отсутствии поля {missing_field}"
 

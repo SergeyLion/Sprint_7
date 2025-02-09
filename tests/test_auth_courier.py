@@ -34,11 +34,12 @@ class TestAuthCourier:
         with allure.step("Отправка POST-запроса для авторизации курьера"):
             response = api_client.post(St.ENDPOINT_AUTH_COURIER, payload)
 
-        with allure.step("Проверка, что код ответа на создание заказа 400"):
-            assert response.status_code == 400, f"Ожидалась ошибка 400 при отсутствии поля {missing_field}"
+        with (allure.step("Проверка, что код ответа на создание заказа 400")):
+            assert response.status_code == St.RESPONSE_AUTH_BAD_REQUEST["code"],\
+                f"Ожидалась ошибка 400 при отсутствии поля {missing_field}"
 
         with allure.step("Проверка, что в теле ответа содержится сообщение об ошибки"):
-            assert "Недостаточно данных для входа" in response.json()["message"],\
+            assert St.RESPONSE_AUTH_BAD_REQUEST["message"] in response.json()["message"],\
                 f"Ожидалось сообщение об ошибке при отсутствии поля {missing_field}"
 
     @allure.title("Возврат ошибки при неправильном значение поля")
@@ -53,10 +54,11 @@ class TestAuthCourier:
             response = api_client.post(St.ENDPOINT_AUTH_COURIER, payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 404"):
-            assert response.status_code == 404, f"Ожидалась ошибка 404 при неправильном поля {incorrect_field}"
+            assert response.status_code == St.RESPONSE_AUTH_NOT_FOUND["code"],\
+                f"Ожидалась ошибка 404 при неправильном поля {incorrect_field}"
 
         with allure.step("Проверка, что в теле ответа содержится сообщение об ошибки"):
-            assert "Учетная запись не найдена" in response.json()["message"],\
+            assert St.RESPONSE_AUTH_NOT_FOUND["message"] in response.json()["message"],\
                 f"Ожидалось сообщение об ошибке при неправильном поля {incorrect_field}"
 
     @allure.title("Возврат ошибки авторизации несуществующего пользователя")
@@ -72,7 +74,9 @@ class TestAuthCourier:
             response = api_client.post(St.ENDPOINT_AUTH_COURIER, payload)
 
         with allure.step("Проверка, что код ответа на создание заказа 404"):
-            assert response.status_code == 404, "Ожидалась ошибка 404 для несуществующего пользователя"
+            assert response.status_code == St.RESPONSE_AUTH_NOT_FOUND["code"],\
+                "Ожидалась ошибка 404 для несуществующего пользователя"
 
         with allure.step("Проверка, что в теле ответа содержится сообщение об ошибки"):
-            assert "Учетная запись не найдена" in response.json()["message"], "Ожидалось сообщение об ошибке"
+            assert St.RESPONSE_AUTH_NOT_FOUND["message"] in response.json()["message"],\
+                "Ожидалось сообщение об ошибке"
