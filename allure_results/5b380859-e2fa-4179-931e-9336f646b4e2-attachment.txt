@@ -1,0 +1,3 @@
+INFO:tests.conftest:Выданные данные для регистрации: {'login': 'zshkdkbkfj', 'password': 'fnsqpxmpxk', 'firstName': 'iupumtpfmt'}
+INFO:tests.conftest:Измененные данные в тесте: {'password': 'fnsqpxmpxk', 'firstName': 'iupumtpfmt'}
+INFO:tests.conftest:Авторизация курьера для удаления: {'login': 'zshkdkbkfj', 'password': 'fnsqpxmpxk'}

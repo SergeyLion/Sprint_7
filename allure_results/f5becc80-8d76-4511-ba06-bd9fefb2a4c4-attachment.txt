@@ -1,0 +1,3 @@
+INFO:tests.conftest:Выданные данные для регистрации: {'login': 'zcgqksixrn', 'password': 'gydyffuruf', 'firstName': 'gktovtzxiz'}
+INFO:tests.conftest:Измененные данные в тесте: {'login': 'tulskiy', 'password': 'gydyffuruf'}
+INFO:tests.conftest:Авторизация курьера для удаления: {'login': 'zcgqksixrn', 'password': 'gydyffuruf'}

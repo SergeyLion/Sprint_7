@@ -1,0 +1,3 @@
+INFO:tests.conftest:Выданные данные для регистрации: {'login': 'dfhhyltdeh', 'password': 'smlnhtdlfc', 'firstName': 'fzbsaanfrk'}
+INFO:tests.conftest:Измененные данные в тесте: {'login': 'dfhhyltdeh', 'password': 'tulskiy'}
+INFO:tests.conftest:Авторизация курьера для удаления: {'login': 'dfhhyltdeh', 'password': 'smlnhtdlfc'}
